@@ -1,0 +1,36 @@
+const express = require("express");
+const morgan = require("morgan");
+const exphbs = require("express-handlebars"); // HTML template engine
+const path = require("path"); // handle file paths in the project
+
+// inits
+const app = express();
+
+// settings
+app.set('port', process.env.PORT || 4000);
+app.set('views', path.join(__dirname, 'views')); // /views
+app.set('.hbs', exphbs({
+    defaultLayout: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'), // /views/layouts
+    partialsDir: path.join(app.get('views'), 'partials'), // /views/partials
+    extname: '.hbs',
+    helpers: require("./lib/handlebars")
+})); // set the template engine
+app.set('view engine', '.hbs');
+
+// middlewares
+app.use(morgan('dev'));
+
+// global variables
+
+
+// routes
+app.use(require("./routes"));
+
+// public files
+
+
+// starting the server
+app.listen(app.get('port'), () => {
+    console.log(`Server listening on port: ${app.get('port')}`);
+});
