@@ -13,7 +13,7 @@ const app = express();
 // settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views')); // /views
-app.set('.hbs', exphbs({
+app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'), // /views/layouts
     partialsDir: path.join(app.get('views'), 'partials'), // /views/partials
