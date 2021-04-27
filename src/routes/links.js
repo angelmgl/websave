@@ -16,7 +16,13 @@ router.post('/add', async (req, res) => {
     };
 
     await db.query('INSER INTO links set ?', [newLink]);
-    res.send("recibido");
+    res.redirect('/links');
+});
+
+router.get("/", async (req, res) => {
+    const links = await db.query("SELECT * FROM links");
+
+    res.render("links/list", { links });
 });
 
 module.exports = router;
