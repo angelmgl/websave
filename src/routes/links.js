@@ -19,6 +19,7 @@ router.post("/add", async (req, res) => {
 
     try {
         await db.query("INSER INTO links set ?", [newLink]);
+        req.flash('success', 'Link guardado con éxito!');
         res.redirect("/links");
     } catch (error) {
         console.log(error);
@@ -41,6 +42,7 @@ router.get("/delete/:id", async (req, res) => {
 
     try {
         await db.query("DELETE FROM links WHERE ID = ?", [id]);
+        req.flash('success', 'Link eliminado con éxito!');
         res.redirect("/links");
     } catch (error) {
         console.log(error);
@@ -71,6 +73,7 @@ router.post("/edit/:id", async (req, res) => {
 
     try {
         await db.query("UPDATE links set ? WHERE id = ?", [newLink, id]);
+        req.flash('success', 'Link actualizado con éxito!');
         res.redirect("/links");
     } catch (error) {
         console.log(error);
