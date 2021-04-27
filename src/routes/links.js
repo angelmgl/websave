@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../database");
+const { isLoggedIn } = require("../lib/auth");
 
 // get the form to create a new link
-router.get("/add", (req, res) => {
+router.get("/add", isLoggedIn, (req, res) => {
     res.render("links/add");
 });
 
 // post the data to create a new link
-router.post("/add", async (req, res) => {
+router.post("/add", isLoggedIn, async (req, res) => {
     const { title, url, description } = req.body;
     const newLink = {
         title,
@@ -19,7 +20,7 @@ router.post("/add", async (req, res) => {
 
     try {
         await db.query("INSER INTO links set ?", [newLink]);
-        req.flash('success', 'Link guardado con éxito!');
+        req.flash("success", "Link guardado con éxito!");
         res.redirect("/links");
     } catch (error) {
         console.log(error);
@@ -27,7 +28,7 @@ router.post("/add", async (req, res) => {
 });
 
 // get all links from the database
-router.get("/", async (req, res) => {
+router.get("/", isLoggedIn, async (req, res) => {
     try {
         const links = await db.query("SELECT * FROM links");
         res.render("links/list", { links });
@@ -37,12 +38,12 @@ router.get("/", async (req, res) => {
 });
 
 // delete a specific link from the database
-router.get("/delete/:id", async (req, res) => {
+router.get("/delete/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params;
 
     try {
         await db.query("DELETE FROM links WHERE ID = ?", [id]);
-        req.flash('success', 'Link eliminado con éxito!');
+        req.flash("success", "Link eliminado con éxito!");
         res.redirect("/links");
     } catch (error) {
         console.log(error);
@@ -50,7 +51,7 @@ router.get("/delete/:id", async (req, res) => {
 });
 
 // render a form to modify data from a link
-router.get("/edit/:id", async (req, res) => {
+router.get("/edit/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -62,7 +63,7 @@ router.get("/edit/:id", async (req, res) => {
 });
 
 // save the changes on the link
-router.post("/edit/:id", async (req, res) => {
+router.post("/edit/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params;
     const { title, description, url } = req.body;
     const newLink = {
@@ -73,7 +74,7 @@ router.post("/edit/:id", async (req, res) => {
 
     try {
         await db.query("UPDATE links set ? WHERE id = ?", [newLink, id]);
-        req.flash('success', 'Link actualizado con éxito!');
+        req.flash("success", "Link actualizado con éxito!");
         res.redirect("/links");
     } catch (error) {
         console.log(error);

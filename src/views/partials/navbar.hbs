@@ -7,6 +7,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav" style="margin-left: auto">
+
+                {{#if user}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,6 +22,15 @@
                         <li><a class="dropdown-item" href="/links/add">Agregar un link</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="/profile" class="nav-link">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">Cerrar sesión</a>
+                </li>
+                {{/if}}
+
+
             </ul>
         </div>
     </div>

@@ -65,7 +65,7 @@ passport.use(
     )
 );
 
-// get the user id
+// save the user info in memory
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
