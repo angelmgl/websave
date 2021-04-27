@@ -19,9 +19,10 @@ pool.getConnection((error, connection) => {
         }
     }
 
-    if(connection) connection.release();
+    if(connection) {
+        connection.release();
     console.log("DB is connected");
-    return;
+    }
 });
 
 // promisify pool queries
