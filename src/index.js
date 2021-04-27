@@ -7,11 +7,13 @@ const path = require("path"); // handle file paths in the project
 const flash = require("connect-flash"); // to show feedback notifications
 const session = require("express-session"); // maintains sessions on the server
 const MySQLStore = require("express-mysql-session"); // save sessions on the DB
+const passport = require("passport");
 
 const { database } = require("./keys");
 
 // inits
 const app = express();
+require("./lib/passport");
 
 
 // settings
@@ -38,6 +40,8 @@ app.use(flash()); // to show feedback notifications when you delete or modify li
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json()); // to req and res json files through an API
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // global variables
