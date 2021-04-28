@@ -16,10 +16,11 @@ router.post("/add", isLoggedIn, async (req, res) => {
         title,
         url,
         description,
+        user_id: req.user.id
     };
 
     try {
-        await db.query("INSER INTO links set ?", [newLink]);
+        await db.query("INSERT INTO links set ?", [newLink]);
         req.flash("success", "Link guardado con éxito!");
         res.redirect("/links");
     } catch (error) {
@@ -30,7 +31,7 @@ router.post("/add", isLoggedIn, async (req, res) => {
 // get all links from the database
 router.get("/", isLoggedIn, async (req, res) => {
     try {
-        const links = await db.query("SELECT * FROM links");
+        const links = await db.query("SELECT * FROM links WHERE user_id = ?", [req.user.id]);
         res.render("links/list", { links });
     } catch (error) {
         console.log(error);

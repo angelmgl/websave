@@ -1,7 +1,29 @@
+body {
+    background-color: #f6f5f6;
+    font-family: 'Oswald', sans-serif;
+    overflow: hidden;
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
 
 .btn-block {
     width: 100%;
+}
+
+.index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #3411af, #a423df);
+}
+
+.master-head {
+    color: #fff;
+}
+
+.mb-1 {
+    font-size: 4rem;
 }
